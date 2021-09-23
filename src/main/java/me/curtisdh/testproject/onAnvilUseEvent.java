@@ -14,6 +14,7 @@ public class onAnvilUseEvent implements Listener
 {
     int requiredXpMultiplier = 7;
     int maxEnchantmentLevel = 10;
+    int maxCost = 150;
     @EventHandler
     void AnvilEvent(PrepareAnvilEvent event)
     {
@@ -50,9 +51,8 @@ public class onAnvilUseEvent implements Listener
                         if(all.getValue() + 1 > maxEnchantmentLevel)
                         {
                             newEnchantments.put(all.getKey(),all.getValue());
-                            anvilInventory.setMaximumRepairCost(5000);
-                            anvilInventory.setRepairCost(5000);
-                            //setting to unrealistically high number to prevent accidental anvil crafting
+                            anvilInventory.setMaximumRepairCost(maxCost);
+                            anvilInventory.setRepairCost(maxCost);
                         }
                         else
                         {
