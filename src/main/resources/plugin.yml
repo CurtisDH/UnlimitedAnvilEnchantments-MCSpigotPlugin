@@ -3,20 +3,8 @@ version: '${project.version}'
 main: me.curtisdh.testproject.TestProject
 api-version: 1.17
 commands:
-  heal:
-    description: Heals the player to max health
-    usage: /<command>
-    aliases: Heal
-  food:
-    description: Sets the players food to 20
-    usage: /<command>
-    aliases: Food
-  top:
-    description: Teleports the player to max standable height
-    usage: /<command>
-    aliases: Test
-  SetXPLevel:
-    description: Sets xp level
-    usage: /<command> <int>
-    aliases: [ SetLevel,setlevel,SetXP,setxp ]
+  reloadConfig:
+    description: Reloads the config file for 'UnlimitedAnvilEnchants'
+    usage: /reloadConfig
+    aliases: rcfg
 
