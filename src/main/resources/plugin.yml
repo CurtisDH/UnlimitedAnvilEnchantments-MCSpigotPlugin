@@ -1,10 +1,9 @@
-name: TestProject
+name: UnlimitedAnvilEnchants
 version: '${project.version}'
-main: me.curtisdh.testproject.TestProject
+main: github.curtisdh.unlimitedanvilenchants.UnlimitedAnvilEnchants
 api-version: 1.17
 commands:
   reloadConfig:
     description: Reloads the config file for 'UnlimitedAnvilEnchants'
     usage: /reloadConfig
     aliases: rcfg
-

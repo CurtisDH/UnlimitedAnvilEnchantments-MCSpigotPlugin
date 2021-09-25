@@ -1,4 +1,4 @@
-package me.curtisdh.testproject;
+package github.curtisdh.unlimitedanvilenchants;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -12,9 +12,9 @@ import java.util.*;
 
 public class onAnvilUseEvent implements Listener
 {
-    public static int requiredXpMultiplier = 7;
-    public static int maxEnchantmentLevel = 10;
-    public static int maxCost = 150;
+    public int requiredXpMultiplier = 7;
+    public int maxEnchantmentLevel = 10;
+    public int maxCost = 150;
 
     @EventHandler
     void AnvilEvent(PrepareAnvilEvent event)

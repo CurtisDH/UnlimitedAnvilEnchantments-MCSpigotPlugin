@@ -1,18 +1,20 @@
-package me.curtisdh.testproject;
+package github.curtisdh.unlimitedanvilenchants;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class TestProject extends JavaPlugin
+public final class UnlimitedAnvilEnchants extends JavaPlugin
 {
-    public static TestProject Instance;
+    public static UnlimitedAnvilEnchants Instance;
     private Integer requiredXp = 7;
     private Integer maxEnchantLevel = 10;
     private Integer _maxCost = 150;
+    private onAnvilUseEvent anvilEvent;
 
     @Override
     public void onEnable()
     {
         PrintWithClassName(this, "Starting...");
+        anvilEvent = new onAnvilUseEvent();
         Instance = this;
         LoadConfig();
         SetupAnvilEvents();
@@ -61,16 +63,16 @@ public final class TestProject extends JavaPlugin
         PrintWithClassName(this, "requiredXpMultiplier:" + requiredXpMultiplier);
         PrintWithClassName(this, "maxEnchantmentLevel:" + maxEnchantmentLevel);
         PrintWithClassName(this, "maxCost:" + maxCost);
-        onAnvilUseEvent.maxCost = Integer.parseInt(maxCost);
-        onAnvilUseEvent.maxEnchantmentLevel = Integer.parseInt(maxEnchantmentLevel);
-        onAnvilUseEvent.requiredXpMultiplier = Integer.parseInt(requiredXpMultiplier);
+        anvilEvent.maxCost = Integer.parseInt(maxCost);
+        anvilEvent.maxEnchantmentLevel = Integer.parseInt(maxEnchantmentLevel);
+        anvilEvent.requiredXpMultiplier = Integer.parseInt(requiredXpMultiplier);
         PrintWithClassName(this, "Done");
     }
 
     private void SetupAnvilEvents()
     {
         PrintWithClassName(this, "Setting up Anvil Events");
-        getServer().getPluginManager().registerEvents(new onAnvilUseEvent(), this);
+        getServer().getPluginManager().registerEvents(anvilEvent, this);
         PrintWithClassName(this, "Done");
     }
 
