@@ -12,9 +12,9 @@ import java.util.*;
 
 public class onAnvilUseEvent implements Listener
 {
-    int requiredXpMultiplier = 7;
-    int maxEnchantmentLevel = 10;
-    int maxCost = 150;
+    public static int requiredXpMultiplier = 7;
+    public static int maxEnchantmentLevel = 10;
+    public static int maxCost = 150;
     @EventHandler
     void AnvilEvent(PrepareAnvilEvent event)
     {
@@ -26,9 +26,17 @@ public class onAnvilUseEvent implements Listener
         {
             Material item1Mat = anvilInventory.getItem(0).getType();
             Material item2Mat = anvilInventory.getItem(1).getType();
+            TestProject.PrintWithClassName(this,item1Mat.toString());
             if (item1Mat != item2Mat)
             {
                 return;
+            }
+            if(item1Mat == item2Mat)
+            {
+                if(item1Mat.toString().equalsIgnoreCase("ENCHANTED_BOOK"))
+                {
+                    return;
+                }
             }
 
             Map<Enchantment, Integer> item1Enchants = anvilInventory.getItem(0).getEnchantments();
