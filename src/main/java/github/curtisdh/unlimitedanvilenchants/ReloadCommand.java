@@ -1,5 +1,6 @@
 package github.curtisdh.unlimitedanvilenchants;
 
+import github.curtisdh.unlimitedanvilenchants.UnlimitedAnvilEnchants;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
