@@ -106,6 +106,23 @@ public class onAnvilUseEvent implements Listener
                 });
             }
 
+            // quick fix -- Anything above 39 results in "too expensive" when in survival mode
+            if(anvilInventory.getRepairCost() >= 40)
+            {
+                Bukkit.getScheduler().runTask(UnlimitedAnvilEnchants.Instance, () ->
+                {
+                    event.getInventory().setRepairCost(39);
+                    for (HumanEntity humanEntity : event.getViewers())
+                    {
+                        if (humanEntity instanceof Player)
+                        {
+                            Player player = (((Player) humanEntity).getPlayer());
+                            player.updateInventory();
+                        }
+                    }
+                });
+            }
+
             event.setResult(resultingItem);
         }
     }
