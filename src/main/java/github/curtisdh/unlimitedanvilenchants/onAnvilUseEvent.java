@@ -1,6 +1,7 @@
 package github.curtisdh.unlimitedanvilenchants;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -18,6 +19,12 @@ public class onAnvilUseEvent implements Listener
     public int requiredXpMultiplier = 7;
     public int maxEnchantmentLevel = 10;
     public int maxCost = 150;
+    private Integer setCost = 0;
+
+    //Used to prevent spamming messages to the player
+    long timer = System.currentTimeMillis();
+    Integer timerDelay = 10;
+
 
     @EventHandler
     void AnvilEvent(PrepareAnvilEvent event)
@@ -67,9 +74,10 @@ public class onAnvilUseEvent implements Listener
                             anvilInventory.setRepairCost(maxCost);
                         } else
                         {
+                            setCost = (all.getValue() + 1) * requiredXpMultiplier;
                             newEnchantments.put(all.getKey(), all.getValue() + 1);
                             anvilInventory.setMaximumRepairCost(((all.getValue() + 1) * requiredXpMultiplier) * 2);
-                            anvilInventory.setRepairCost((all.getValue() + 1) * requiredXpMultiplier);
+                            anvilInventory.setRepairCost(setCost);
                         }
                     }
                 } else // doesnt contain the current enchantment so lets add it
@@ -111,13 +119,29 @@ public class onAnvilUseEvent implements Listener
             {
                 Bukkit.getScheduler().runTask(UnlimitedAnvilEnchants.Instance, () ->
                 {
-                    event.getInventory().setRepairCost(39);
+                    event.getInventory().setMaximumRepairCost(Integer.MAX_VALUE);
                     for (HumanEntity humanEntity : event.getViewers())
                     {
                         if (humanEntity instanceof Player)
                         {
                             Player player = (((Player) humanEntity).getPlayer());
-                            player.updateInventory();
+                            ChatColor color = ChatColor.GREEN;
+                            String MessageToPlayer = "Enchantment Cost:"+setCost;
+                            float xpLevel = player.getLevel();
+                            if(xpLevel < setCost)
+                            {
+                                MessageToPlayer = "Insufficient XP | Cost:"+setCost+" You require "+
+                                        (setCost-xpLevel) +" more levels";
+                                color = ChatColor.RED;
+                            }
+                            if(System.currentTimeMillis() - timer > timerDelay)
+                            {
+                                //Reset timer
+                                timer = System.currentTimeMillis();
+
+                                player.sendMessage(color + MessageToPlayer);
+                                player.updateInventory();
+                            }
                         }
                     }
                 });
